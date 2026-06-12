@@ -1,7 +1,7 @@
 #include "Engine.h"
 
 void Engine::init () {
-    Debug::log("INFO", "Opening window.");
+    Debug::log("INFO", "Starting engine and loading window.");
 
     if(!this->initSDL()) {
         return;
@@ -57,8 +57,28 @@ bool Engine::loadRenderer () {
     return m_win.rendPtr;
 }
 
-void Engine::setScene (std::unique_ptr<Scene> newScene) {
-    m_scene = newScene != nullptr ? 
+
+// void Engine::refreshInput () {
+//     m_input.update();
+// }
+
+
+
+void Engine::kill () {
+    if(m_currentScene) m_currentScene.reset();
+
+    Debug::log("INFO", "Closing window and killing engine.");
+
+    if(m_win.rendPtr) SDL_DestroyRenderer(m_win.rendPtr);
+    if(m_win.winPtr) SDL_DestroyWindow(m_win.winPtr);
+
+    SDL_QuitSubSystem(SDL_INIT_EVERYTHING);
+    IMG_Quit();
+    SDL_Quit();
+}
+
+void Engine::setCurrentScene (std::unique_ptr<Scene> newScene) {
+    m_currentScene = newScene != nullptr ? 
         std::move(newScene) 
         : 
         std::make_unique<Scene>();
@@ -83,9 +103,9 @@ void Engine::startLoop () {
 
         m_input.update();
 
-        m_scene->input();
-        m_scene->update(deltaTime);
-        m_scene->draw();
+        m_currentScene->input();
+        m_currentScene->update(deltaTime);
+        m_currentScene->draw();
 
         SDL_RenderPresent(m_win.rendPtr);
 
@@ -99,21 +119,3 @@ void Engine::startLoop () {
 }
 
 
-// void Engine::refreshInput () {
-//     m_input.update();
-// }
-
-
-
-void Engine::kill () {
-    Debug::log("INFO", "Closing window.");
-    // if(this->openGLContext) 
-    //     SDL_GL_DeleteContext(this->openGLContext);
-
-    if(m_win.rendPtr) SDL_DestroyRenderer(m_win.rendPtr);
-    if(m_win.winPtr) SDL_DestroyWindow(m_win.winPtr);
-
-    SDL_QuitSubSystem(SDL_INIT_EVERYTHING);
-    IMG_Quit();
-    SDL_Quit();
-}

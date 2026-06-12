@@ -1,17 +1,6 @@
 #ifndef MAIN_H
 #define MAIN_H
 
-#include "SDL.h"
-#include "SDL_image.h"
-
-struct SDLData {
-    int winWidth, winHeight;
-
-    SDL_Window   *win;
-    SDL_Renderer *rend;
-} data;
-
-
 //!!!!!!!!EXAMPLE
 extern int wideScreenWidth;
 

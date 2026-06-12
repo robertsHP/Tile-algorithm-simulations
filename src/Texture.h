@@ -13,18 +13,17 @@
 
 class Texture {
     private:
-        char         *m_fileLoc;
-        size_t        m_shSize;
-        SDL_Texture  *m_textr;
-        SDL_Surface  *m_surface;
+        std::string  m_fileLoc;
+        SDL_Texture *m_textr;
+        SDL_Surface *m_surface;
 
-        std::vector<SDL_Rect> m_tmplts;
     public:
         // Texture () = delete;
-        Texture (char *fileLoc, SDL_Point templSize, SDL_Renderer *rend);
+        Texture (std::string fileLoc, SDL_Renderer *rend);
         ~Texture ();
 
         void removeColor(SDL_Color color);
+        void draw (SDL_Rect &renderRect);
 
     // public :
     //     // GLuint id;
@@ -40,5 +39,16 @@ class Texture {
     //     void bind ();
     //     void unbind ();
 };
+
+// class TextureSheet : public Texture {
+//     private:
+//         size_t m_shSize;
+//         std::vector<SDL_Rect> m_tmplts;
+
+//     public:
+//         TextureSheet (const char *fileLoc, SDL_Point templSize, SDL_Renderer *rend);
+
+//         // void draw () override;
+// };
 
 #endif // TEXTURE_H

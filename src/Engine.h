@@ -3,13 +3,12 @@
 
 #include <memory>
 
+#include "SDL_render.h"
 #include "Singleton.h"
 
 #include "Debug.h"
 #include "Scene.h"
 #include "Input.h"
-
-#include "Texture.h"
 
 class Engine : public Singleton<Engine> {
 private:
@@ -32,7 +31,10 @@ private:
     } m_win;
 
     Input m_input;
-    std::unique_ptr<Scene> m_scene;
+    std::unique_ptr<Scene> m_currentScene;
+
+public:
+    Window& getWindowData () { return m_win; }
 
 public:
     void init ();
@@ -45,13 +47,9 @@ private:
 
 public:
     void kill ();
-    void setScene (std::unique_ptr<Scene> newScene = nullptr);
+    void setCurrentScene (std::unique_ptr<Scene> newScene = nullptr);
     void startLoop ();
     void stopLoop () { m_isLooping = false; }
-
-
-    //TODO
-    std::shared_ptr<Texture> loadTexture ();
 
 };
 

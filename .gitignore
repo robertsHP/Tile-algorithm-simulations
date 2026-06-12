@@ -4,7 +4,7 @@ Thumbs.db
 
 # Ignore IDE files
 .idea/
-.vscode/
+# .vscode/
 
 # Ignore build files
 build/

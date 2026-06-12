@@ -1,13 +1,17 @@
 #include "MainScene.h"
 
+#include "SDL_rect.h"
 #include "Texture.h"
 
 #include <memory>
 
 MainScene::MainScene() {
-    Debug::log("INFO", "Loading scene.");
+    
+    Scene::loadTexture("mouse", "../assets/MOUSE.png");
 
-    // m_texture = std::make_shared<Engine::Texture>();
+
+
+
     // m_texture = new Engine::Texture(
     //     "../assets/MOUSE.png", (SDL_Point) {0, 0},
         
@@ -46,7 +50,7 @@ MainScene::MainScene() {
     // this->mesh = std::make_unique<Engine::Mesh>(vertices, indices);
 }
 MainScene::~MainScene() {
-    Debug::log("INFO", "Closing scene.");
+    
 }
 
 void MainScene::input () {
@@ -61,7 +65,9 @@ void MainScene::update (float deltaTime) {
 void MainScene::draw () {
     // this->mesh->draw(this->plainShader, this->texture);
 
+    // auto rect = (SDL_Rect){0, 0, 1, 1};
 
+    // Scene::getTexture("mouse")->draw(rect);
     
 }
 

@@ -10,7 +10,7 @@ class Input {
         std::vector<SDL_Event> mouseEvents;
         uint8_t *keyBoardState;
         uint32_t mouseState;
-
+    public:
         void update ();
         bool ifCondApplyToKeyEventCont (uint32_t inputType, uint8_t scanCode, uint8_t repeatAmount);
         bool ifCondApplyToMouseEventCont (uint32_t inputType, uint8_t scanCode, uint8_t clickAmount);
