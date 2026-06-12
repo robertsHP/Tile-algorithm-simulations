@@ -24,20 +24,6 @@ class Texture {
 
         void removeColor(SDL_Color color);
         void draw (SDL_Rect &renderRect);
-
-    // public :
-    //     // GLuint id;
-    //     int width, height;
-    //     std::string dir;
-
-    //     // GLenum type;
-    // public :
-    //     Texture (std::string dir, GLenum texType, GLenum slot, GLenum format, GLenum pixelType);
-    //     ~Texture ();
-
-    //     void texUnit (std::shared_ptr<ShaderProgram> shader, const char* uniform, GLuint unit);
-    //     void bind ();
-    //     void unbind ();
 };
 
 // class TextureSheet : public Texture {

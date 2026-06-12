@@ -23,7 +23,6 @@ Texture::Texture (std::string fileLoc, SDL_Renderer *rend) {
     SDL_SetSurfaceBlendMode(m_surface, SDL_BLENDMODE_BLEND);
 
     if(m_surface) {
-        // m_shSize = 0;
         m_textr = SDL_CreateTextureFromSurface(rend, m_surface);
 
         if(!m_textr){
@@ -31,13 +30,14 @@ Texture::Texture (std::string fileLoc, SDL_Renderer *rend) {
         }
     }
 
-    SDL_FreeSurface(m_surface);
+    SDL_FreeSurface(txtr);
 }
 
 Texture::~Texture () {
     Debug::log("INFO", "Destroying texture " + m_fileLoc + ".");
 
     // Free(gpuSheet->tmplts, "sprSh_Create");
+
     if(m_surface) SDL_FreeSurface(m_surface);
     if(m_textr) SDL_DestroyTexture(m_textr);
 }
@@ -72,7 +72,6 @@ void Texture::removeColor (SDL_Color color) {
         m_surface->pitch
     );
 }
-
 
 void Texture::draw (SDL_Rect &renderRect) {
     static Engine &engine = Engine::getInstance();

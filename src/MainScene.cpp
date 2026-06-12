@@ -65,9 +65,9 @@ void MainScene::update (float deltaTime) {
 void MainScene::draw () {
     // this->mesh->draw(this->plainShader, this->texture);
 
-    // auto rect = (SDL_Rect){0, 0, 1, 1};
+    auto rect = (SDL_Rect){100, 5, 100, 100};
 
-    // Scene::getTexture("mouse")->draw(rect);
+    Scene::getTexture("mouse")->draw(rect);
     
 }
 
