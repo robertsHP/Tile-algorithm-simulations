@@ -81,7 +81,6 @@ void Texture::draw (SDL_Rect &renderRect) {
         m_textr,
         NULL,
         &renderRect
-
     );
 }
 
