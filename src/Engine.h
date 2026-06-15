@@ -11,45 +11,46 @@
 #include "Input.h"
 
 class Engine : public Singleton<Engine> {
-private:
-    bool m_isLooping = true;
-    int  m_fps = 0;
+    private:
+        bool m_isLooping = true;
+        int  m_fps = 0;
 
-    struct Window {
-        std::string title;
+        struct Window {
+            std::string title;
 
-        union {
-            struct {
-                int width;
-                int height;
+            union {
+                struct {
+                    int width;
+                    int height;
+                };
+                SDL_Point size;
             };
-            SDL_Point size;
-        };
 
-        SDL_Window   *winPtr;
-        SDL_Renderer *rendPtr;
-    } m_win;
+            SDL_Window   *winPtr;
+            SDL_Renderer *rendPtr;
+        } m_win;
 
-    Input m_input;
-    std::unique_ptr<Scene> m_currentScene;
+        Input m_input;
+        std::unique_ptr<Scene> m_currentScene;
 
-public:
-    Window& getWindowData () { return m_win; }
+    public:
+        Window& getWindowData () { return m_win; }
+        std::unique_ptr<Scene>& getCurrentScene () { return m_currentScene; }
 
-public:
-    void init ();
-private:
-    bool initSDL ();
-    bool loadWindow ();
-    bool loadRenderer ();
+    public:
+        void init ();
+    private:
+        bool initSDL ();
+        bool loadWindow ();
+        bool loadRenderer ();
 
-    // void refreshInput ();
+        // void refreshInput ();
 
-public:
-    void kill ();
-    void setCurrentScene (std::unique_ptr<Scene> newScene = nullptr);
-    void startLoop ();
-    void stopLoop () { m_isLooping = false; }
+    public:
+        void kill ();
+        void setCurrentScene (std::unique_ptr<Scene> newScene = nullptr);
+        void startLoop ();
+        void stopLoop () { m_isLooping = false; }
 
 };
 

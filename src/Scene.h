@@ -7,7 +7,7 @@
 
 class Scene {
     private:
-        std::map<std::string, std::unique_ptr<Texture>> m_textures;
+        std::map<std::string, std::shared_ptr<Texture>> m_textures;
 
     public:
         Scene ();
@@ -18,7 +18,7 @@ class Scene {
         virtual void draw () {}
 
         void loadTexture (std::string title, std::string fileLoc);
-        std::unique_ptr<Texture>& getTexture (std::string title);
+        std::shared_ptr<Texture> getTexture (std::string title);
 };
 
 #endif // SCENE_H

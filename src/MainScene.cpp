@@ -7,7 +7,7 @@
 
 MainScene::MainScene() {
     
-    Scene::loadTexture("mouse", "../assets/MOUSE.png");
+    Scene::loadTexture("board", "../assets/gfx/board.png");
 
 }
 MainScene::~MainScene() {

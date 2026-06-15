@@ -42,6 +42,36 @@ Texture::~Texture () {
     if(m_textr) SDL_DestroyTexture(m_textr);
 }
 
+void Texture::generateSheetTemplates (SDL_Point templSize) {
+    size_t       memSize;
+    SDL_Point    realSize;
+    bool         templApplies, templFits;
+
+    if(m_surface) {
+        templApplies = m_surface->w % templSize.x == 0 && m_surface->h % templSize.y == 0;
+        templFits    = m_surface->w >= templSize.x && m_surface->h >= templSize.y;
+
+        if(templApplies && templFits) {
+            realSize.x = m_surface->w / templSize.x;
+            realSize.y = m_surface->h / templSize.y;
+            memSize = realSize.x * realSize.y;
+
+            for(int row = 0; row < realSize.y; ++row) {
+                for(int col = 0; col < realSize.x; ++col) {
+                    m_tmplts[col + row * realSize.x] = (SDL_Rect) {
+                        col * templSize.x,
+                        row * templSize.y,
+                        templSize.x,
+                        templSize.y
+                    };
+                }
+            }
+            m_shSize = memSize;
+        } 
+        // else printf("TextureSheet : Failed to create from \"%s\"\n", fileLoc);
+    }
+}
+
 void Texture::removeColor (SDL_Color color) {
     Uint32          rmColor;
     unsigned int    memSize;
@@ -73,33 +103,45 @@ void Texture::removeColor (SDL_Color color) {
     );
 }
 
-void Texture::draw (SDL_Rect &renderRect) {
+// void Texture::draw (SDL_Rect &renderRect) {
+//     static Engine &engine = Engine::getInstance();
+
+//     SDL_RenderCopy(
+//         engine.getWindowData().rendPtr,
+//         m_textr,
+//         NULL,
+//         &renderRect
+//     );
+// }
+
+void TextureSheet::draw (
+    SDL_Rect src_rect,
+    SDL_Rect dst_rect,
+    double angle,
+    SDL_Point anglePoint
+) {
     static Engine &engine = Engine::getInstance();
 
-    SDL_RenderCopy(
+    SDL_RenderCopyEx(
         engine.getWindowData().rendPtr,
         m_textr,
-        NULL,
-        &renderRect
+        &src_rect,
+        &dst_rect,
+        angle,
+        &anglePoint,
+        SDL_FLIP_NONE
     );
 }
 
 
-// TextureSheet::TextureSheet (const char *fileLoc, SDL_Point templSize, SDL_Renderer *rend) {
+// TextureSheet::TextureSheet (
+//     std::string fileLoc, 
+//     SDL_Point templSize, 
+//     SDL_Renderer *rend
+// ) : Texture(fileLoc, rend) {
 //     size_t       memSize;
 //     SDL_Point    realSize;
 //     bool         templApplies, templFits;
-//     SDL_Surface  *tempSurf;
-
-//     tempSurf = IMG_Load(fileLoc);
-
-//     if(!tempSurf) {
-//         printf("TextureSheet : Failed to load surface from \"%s\"\n", fileLoc);
-//         return;
-//     }
-
-//     m_surface = SDL_ConvertSurfaceFormat(tempSurf, SDL_PIXELFORMAT_ARGB8888, 0);
-//     SDL_SetSurfaceBlendMode(m_surface, SDL_BLENDMODE_BLEND);
 
 //     if(m_surface) {
 //         templApplies = m_surface->w % templSize.x == 0 && m_surface->h % templSize.y == 0;
@@ -110,7 +152,6 @@ void Texture::draw (SDL_Rect &renderRect) {
 //             realSize.y = m_surface->h / templSize.y;
 //             memSize = realSize.x * realSize.y;
 
-//             m_fileLoc = (char *) fileLoc;
 //             for(int row = 0; row < realSize.y; ++row) {
 //                 for(int col = 0; col < realSize.x; ++col) {
 //                     m_tmplts[col + row * realSize.x] = (SDL_Rect) {
@@ -122,16 +163,10 @@ void Texture::draw (SDL_Rect &renderRect) {
 //                 }
 //             }
 //             m_shSize = memSize;
-//             m_textr = SDL_CreateTextureFromSurface(rend, m_surface);
-//             if(!m_textr){
-//                 printf("Texture : Failed to convert texture from surface. File -> \"%s\"\n", fileLoc);
-//             }
-//         } else printf("Texture : Failed to create from \"%s\"\n", fileLoc);
+//         } 
+//         // else printf("TextureSheet : Failed to create from \"%s\"\n", fileLoc);
 //     }
-
-//     SDL_FreeSurface(tempSurf);
 // }
-
 
 // void TextureSheet::draw () {
 //     static Engine &engine = Engine::getInstance();
@@ -146,3 +181,6 @@ void Texture::draw (SDL_Rect &renderRect) {
 //         SDL_FLIP_NONE
 //     );
 // }
+
+
+

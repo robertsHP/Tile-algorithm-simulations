@@ -19,11 +19,11 @@ void Scene::loadTexture (std::string title, std::string fileLoc) {
     m_textures.insert(
         {
             title, 
-            std::make_unique<Texture>(fileLoc.c_str(), engine.getWindowData().rendPtr)
+            std::make_shared<Texture>(fileLoc.c_str(), engine.getWindowData().rendPtr)
         }
     );
 }
-std::unique_ptr<Texture>& Scene::getTexture (std::string title) {
+std::shared_ptr<Texture> Scene::getTexture (std::string title) {
     return m_textures[title];
 }
 
