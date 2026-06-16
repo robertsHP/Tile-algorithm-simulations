@@ -1,28 +1,40 @@
 {
-  "version": "2.0.0",
-  "tasks": [
-      {
-          "label": "Executable Call",
-          "type": "shell",
-          "command": [
-              // MSVC
-              "${workspaceFolder}/build/app/Debug/main"
-              // Unix
-              // "${workspaceFolder}/build/bin/main"
-          ],
-          "args": [
-              // "--verbose",
-              // "true",
-              // "--filename",
-              // "${workspaceFolder}/app/test.json"
-          ],
-          "group": {
-              "kind": "build",
-              "isDefault": true
-          },
-          "problemMatcher": [
-              "$gcc"
-          ]
-      }
-  ]
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Executable Call",
+            "type": "shell",
+            "command": [
+                // MSVC
+                "${workspaceFolder}/build/app/Debug/main"
+                // Unix
+                // "${workspaceFolder}/build/bin/main"
+            ],
+            "args": [
+                // "--verbose",
+                // "true",
+                // "--filename",
+                // "${workspaceFolder}/app/test.json"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": [
+                "$gcc"
+            ]
+        },
+        {
+			"type": "cmake",
+			"label": "CMake: build",
+			"command": "build",
+			"targets": [
+				"all"
+			],
+			"group": "build",
+			"problemMatcher": [],
+			"detail": "CMake template build task"
+		}
+    ]
 }
+

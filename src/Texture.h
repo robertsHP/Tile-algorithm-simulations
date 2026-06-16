@@ -12,21 +12,52 @@
 // #include "ShaderProgram.h"
 
 class Texture {
-    protected:
+    private:
         std::string  m_fileLoc;
         SDL_Texture *m_textr;
         SDL_Surface *m_surface;
 
-        size_t m_shSize;
+        // size_t m_shSize;
         std::vector<SDL_Rect> m_tmplts;
+
+        SDL_Renderer *m_rendPtr;
     public:
         // Texture () = delete;
         Texture (std::string fileLoc, SDL_Renderer *rend);
         ~Texture ();
 
+        void reload (std::string fileLoc, SDL_Renderer *rend);
         void generateSheetTemplates (SDL_Point templSize);
         void removeColor(SDL_Color color);
-        void draw (SDL_Rect &renderRect);
+
+        // void draw (
+        //     SDL_Rect src_rect,
+        //     SDL_Rect dst_rect);
+
+        // void draw ()
+
+        void draw (
+            unsigned templID,
+            SDL_Rect *drawShape,
+            double angle,
+            SDL_Point *anglePoint,
+            SDL_RendererFlip flip = SDL_FLIP_NONE
+        );
+
+        // void draw (
+        //     SDL_Rect src_rect,
+        //     SDL_Rect dst_rect,
+        //     double angle,
+        //     SDL_RendererFlip flip = SDL_FLIP_NONE
+        // );
+        void draw (
+            SDL_Rect *drawShape,
+            double angle,
+            SDL_Point *anglePoint,
+            SDL_RendererFlip flip = SDL_FLIP_NONE
+        );
+
+        bool loaded () { return m_surface != nullptr; }
 };
 
 // class TextureSheet : public Texture {

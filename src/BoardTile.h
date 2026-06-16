@@ -2,6 +2,7 @@
 
 #include <memory>
 
+#include "Scene.h"
 #include "Texture.h"
 
 
@@ -42,7 +43,7 @@
 
 class BoardTile {
     public:
-        enum ID {
+        enum ID : unsigned {
             LIGHT = 0,
             DARK,
             POS_MOV,
@@ -51,9 +52,7 @@ class BoardTile {
         };
 
     private:
-        std::shared_ptr<TextureSheet> m_txtr;
-        unsigned m_txtrSheetIndex;
-
+        std::shared_ptr<Texture> m_txtr;
         ID m_id;
     
         // std::unique_ptr<Texture> txtr;
@@ -81,8 +80,14 @@ class BoardTile {
         //     SDL_Point posGM;
         // };
 
+        Scene *m_associatedScene;
+
     public:
-        BoardTile (ID id);
+        BoardTile (ID id, Scene *scene);
         ~BoardTile ();
+
+        void input ();
+        void update (float deltaTime);
+        void draw ();
 };
 

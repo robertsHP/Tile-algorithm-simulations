@@ -17,7 +17,7 @@ class Scene {
         virtual void update (float deltaTime) {}
         virtual void draw () {}
 
-        void loadTexture (std::string title, std::string fileLoc);
+        std::shared_ptr<Texture> loadTexture (std::string title, std::string fileLoc);
         std::shared_ptr<Texture> getTexture (std::string title);
 };
 

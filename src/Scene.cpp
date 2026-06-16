@@ -8,20 +8,22 @@ Scene::Scene () {
 }
 
 Scene::~Scene () {
-    Debug::log("INFO", "Closing scene.");
+    Debug::log("INFO", "Closing scene and clearing textures.");
 
     m_textures.clear();
 }
 
-void Scene::loadTexture (std::string title, std::string fileLoc) {
+std::shared_ptr<Texture> Scene::loadTexture (std::string title, std::string fileLoc) {
     static Engine &engine = Engine::getInstance();
 
+    
+    auto txtr = std::make_shared<Texture>(fileLoc.c_str(), engine.getWindowData().rendPtr);
+
     m_textures.insert(
-        {
-            title, 
-            std::make_shared<Texture>(fileLoc.c_str(), engine.getWindowData().rendPtr)
-        }
+        { title, txtr }
     );
+
+    return txtr;
 }
 std::shared_ptr<Texture> Scene::getTexture (std::string title) {
     return m_textures[title];
