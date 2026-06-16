@@ -23,7 +23,7 @@ int main()
     Engine &engine = Engine::getInstance();
 
     engine.init();
-    engine.setCurrentScene(std::make_unique<MainScene>());
+    engine.setCurrentScene(new MainScene());
     engine.startLoop();
 
     engine.kill();

@@ -58,26 +58,37 @@ void Texture::generateSheetTemplates (SDL_Point templSize) {
         templApplies = m_surface->w % templSize.x == 0 && m_surface->h % templSize.y == 0;
         templFits    = m_surface->w >= templSize.x && m_surface->h >= templSize.y;
 
-        if(templApplies && templFits) {
+        if(templApplies || templFits) {
             realSize.x = m_surface->w / templSize.x;
             realSize.y = m_surface->h / templSize.y;
             memSize = realSize.x * realSize.y;
 
             for(int row = 0; row < realSize.y; ++row) {
                 for(int col = 0; col < realSize.x; ++col) {
-                    unsigned id = col + row * realSize.x;
+                    // unsigned id = col + row * realSize.x;
 
-                    m_tmplts[id] = (SDL_Rect) {
-                        col * templSize.x,
-                        row * templSize.y,
-                        templSize.x,
-                        templSize.y
-                    };
+                    m_tmplts.push_back(
+                        (SDL_Rect) {
+                            col * templSize.x,
+                            row * templSize.y,
+                            templSize.x,
+                            templSize.y
+                        }
+                    );
+                    
+                    // [id] = (SDL_Rect) {
+                    //     col * templSize.x,
+                    //     row * templSize.y,
+                    //     templSize.x,
+                    //     templSize.y
+                    // };
                 }
             }
         } 
         // else printf("TextureSheet : Failed to create from \"%s\"\n", fileLoc);
     }
+
+    printf("m_tmplts count = %d\n", (int) m_tmplts.size());
 }
 
 void Texture::removeColor (SDL_Color color) {
@@ -111,42 +122,6 @@ void Texture::removeColor (SDL_Color color) {
         m_surface->pitch
     );
 }
-
-// void Texture::draw (SDL_Rect &renderRect) {
-//     static Engine &engine = Engine::getInstance();
-
-//     SDL_RenderCopy(
-//         engine.getWindowData().rendPtr,
-//         m_textr,
-//         NULL,
-//         &renderRect
-//     );
-// }
-
-// void Texture::draw (SDL_Rect src_rect, SDL_Rect dst_rect) {
-//     SDL_RenderCopyEx(
-//         m_rendPtr,
-//         m_textr,
-//         &src_rect,
-//         &dst_rect,
-//         angle,
-//         &anglePoint,
-//         SDL_FLIP_NONE
-//     );
-// }
-
-// void Texture::draw (
-//     SDL_Rect src_rect,
-//     SDL_Rect dst_rect,
-//     double angle,
-//     SDL_RendererFlip flip
-// ) {
-//     SDL_Point angleCenter = {
-//         src_rect.w / 2, src_rect.h / 2
-//     };
-
-//     draw(src_rect, dst_rect, angle, NULL, flip);
-// }
 
 void Texture::draw (
     unsigned templID,

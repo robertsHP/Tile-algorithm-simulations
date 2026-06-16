@@ -65,7 +65,8 @@ bool Engine::loadRenderer () {
 
 
 void Engine::kill () {
-    if(m_currentScene) m_currentScene.reset();
+    if(m_currentScene) 
+        delete m_currentScene;
 
     Debug::log("INFO", "Closing window and killing engine.");
 
@@ -77,11 +78,11 @@ void Engine::kill () {
     SDL_Quit();
 }
 
-void Engine::setCurrentScene (std::unique_ptr<Scene> newScene) {
-    m_currentScene = newScene != nullptr ? 
-        std::move(newScene) 
-        : 
-        std::make_unique<Scene>();
+void Engine::setCurrentScene (Scene *newScene) {
+    if (m_currentScene)
+        delete m_currentScene;
+
+    m_currentScene = newScene;
 }
 void Engine::startLoop () {
     const int FRAME_DELAY = 1000 / 60;
@@ -92,29 +93,36 @@ void Engine::startLoop () {
     // printf("isLooping = %d", m_isLooping);
 
     while(m_isLooping) {
-        lastFrame = SDL_GetTicks();
-        if(lastFrame >= (lastTime + 1000)) {
-            lastTime = lastFrame;
-            m_fps = frameCount;
-            frameCount = 0;
+        try {
+            lastFrame = SDL_GetTicks();
+            if(lastFrame >= (lastTime + 1000)) {
+                lastTime = lastFrame;
+                m_fps = frameCount;
+                frameCount = 0;
+            }
+
+            SDL_RenderClear(m_win.rendPtr);
+
+            m_input.update();
+
+            m_currentScene->input();
+            m_currentScene->update(deltaTime);
+            m_currentScene->draw();
+
+            SDL_RenderPresent(m_win.rendPtr);
+
+            frameCount++;
+
+            deltaTime = SDL_GetTicks() - lastFrame;
+            if(FRAME_DELAY > deltaTime){
+                SDL_Delay(FRAME_DELAY - deltaTime);
+            }
+
+        } catch(std::exception &e) {
+
+            SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Error", SDL_GetError(), 0);
         }
 
-        SDL_RenderClear(m_win.rendPtr);
-
-        m_input.update();
-
-        m_currentScene->input();
-        m_currentScene->update(deltaTime);
-        m_currentScene->draw();
-
-        SDL_RenderPresent(m_win.rendPtr);
-
-        frameCount++;
-
-        deltaTime = SDL_GetTicks() - lastFrame;
-        if(FRAME_DELAY > deltaTime){
-            SDL_Delay(FRAME_DELAY - deltaTime);
-        }
     }
 }
 

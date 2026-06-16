@@ -52,7 +52,7 @@ class BoardTile {
         };
 
     private:
-        std::shared_ptr<Texture> m_txtr;
+        Texture *m_txtr;
         ID m_id;
     
         // std::unique_ptr<Texture> txtr;

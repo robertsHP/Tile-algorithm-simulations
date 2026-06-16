@@ -30,12 +30,6 @@ class Texture {
         void generateSheetTemplates (SDL_Point templSize);
         void removeColor(SDL_Color color);
 
-        // void draw (
-        //     SDL_Rect src_rect,
-        //     SDL_Rect dst_rect);
-
-        // void draw ()
-
         void draw (
             unsigned templID,
             SDL_Rect *drawShape,
@@ -43,13 +37,6 @@ class Texture {
             SDL_Point *anglePoint,
             SDL_RendererFlip flip = SDL_FLIP_NONE
         );
-
-        // void draw (
-        //     SDL_Rect src_rect,
-        //     SDL_Rect dst_rect,
-        //     double angle,
-        //     SDL_RendererFlip flip = SDL_FLIP_NONE
-        // );
         void draw (
             SDL_Rect *drawShape,
             double angle,

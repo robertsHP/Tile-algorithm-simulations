@@ -7,7 +7,7 @@
 
 class Scene {
     private:
-        std::map<std::string, std::shared_ptr<Texture>> m_textures;
+        std::map<std::string, Texture*> m_textures;
 
     public:
         Scene ();
@@ -17,8 +17,8 @@ class Scene {
         virtual void update (float deltaTime) {}
         virtual void draw () {}
 
-        std::shared_ptr<Texture> loadTexture (std::string title, std::string fileLoc);
-        std::shared_ptr<Texture> getTexture (std::string title);
+        Texture* loadTexture (std::string title, std::string fileLoc);
+        Texture* getTexture (std::string title);
 };
 
 #endif // SCENE_H
