@@ -6,8 +6,8 @@ TileMap::TileMap (SDL_Point pos, SDL_Point size, Scene *scene) : m_associatedSce
 
     offsetRow = offsetCol = 0;
     
-    m_gapWidth = (Tile::TXTR_WIDTH + 0) * 2;
-    m_gapHeight = (Tile::TXTR_HEIGHT + 0) * 2;
+    m_gapWidth = Tile::TXTR_WIDTH * 2;
+    m_gapHeight = Tile::TXTR_HEIGHT * 2;
     
     m_rect = { pos.x, pos.y, size.x, size.y };
 
@@ -24,7 +24,7 @@ TileMap::TileMap (SDL_Point pos, SDL_Point size, Scene *scene) : m_associatedSce
             m_tiles.insert_or_assign(
                 row * m_rect.w + col, 
                 std::make_unique<Tile>(
-                    Tile::ID::DARK, 
+                    Tile::ID::RED, 
                     (SDL_Point) {finalColVal, finalRowVal}, 
                     scene
                 )

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <memory>
+#include <vector>
 
 #include "CellularAutomata.h"
 #include "Debug.h"
@@ -17,6 +18,7 @@
 
 // #include "Tile.h"
 #include "TileMap.h"
+#include "StateButton.h"
 
 class MainScene : public Scene {
     private :
@@ -28,9 +30,13 @@ class MainScene : public Scene {
         TileMap *m_tileMap;
         CellularAutomata *m_celAutomata;
 
+        StateButton *m_stateButtons [StateButton::COUNT];
+
     public:
         MainScene();
         ~MainScene() override;
+
+        void loadStateButtons ();
 
         void input () override;
         void update (float deltaTime) override;

@@ -44,11 +44,10 @@
 class Tile {
     public:
         enum ID : unsigned {
-            LIGHT = 0,
-            DARK,
-            POS_MOV,
-            IMPOS_MOV,
-            TEX_SEL
+            GREEN = 0,
+            RED,
+            
+            COUNT
         };
 
         static const int TXTR_WIDTH = 30;

@@ -5,14 +5,16 @@
 
 // #include "Tile.h"
 #include "CellularAutomata.h"
+#include "StateButton.h"
 #include "Texture.h"
 
 #include "main.h"
 
 MainScene::MainScene () {
     // std::shared_ptr<Texture> txtr;
+    Texture *txtr;
     
-    Texture *txtr = Scene::loadTexture("board", PROJECT_ROOT + "assets/board.png");
+    txtr = Scene::loadTexture("board", PROJECT_ROOT + "assets/board_iso.png");
 
     if (txtr->loaded()) {
         txtr->removeColor({ 255, 0, 255, 255 });
@@ -23,21 +25,53 @@ MainScene::MainScene () {
         // );
 
         m_tileMap = new TileMap (
-            (SDL_Point) { 600, 100 }, (SDL_Point) {10, 10}, this
+            (SDL_Point) { 485, 100 }, (SDL_Point) {17, 17}, this
         );
+    }
+
+    txtr = Scene::loadTexture("state_btns", PROJECT_ROOT + "assets/state_btns.png");
+    if (txtr->loaded()) {
+        txtr->generateSheetTemplates({ StateButton::TXTR_WIDTH, StateButton::TXTR_HEIGHT });
+
+        loadStateButtons();
     }
 
     m_celAutomata = new CellularAutomata(m_tileMap);
 }
+
 MainScene::~MainScene () {
     Debug::log("INFO", "Closing MainScene.");
 
     if (m_tileMap) delete m_tileMap;
     if (m_celAutomata) delete m_celAutomata;
+
+    for (int i = 0; i < StateButton::COUNT; ++i) {
+        if(m_stateButtons[i])
+            delete m_stateButtons[i];
+    }
+}
+
+void MainScene::loadStateButtons () {
+    for (int i = 0; i < StateButton::COUNT; ++i) {
+        StateButton::ID id = (StateButton::ID) i;
+
+        m_stateButtons[i] = new StateButton(
+            id,
+            (SDL_Point) { 
+                i * StateButton::TXTR_WIDTH * 2, 
+                0 
+            },
+            this
+        );
+    }
 }
 
 void MainScene::input () {
-    
+
+    for (int i = 0; i < StateButton::COUNT; ++i) {
+        if(m_stateButtons[i])
+            m_stateButtons[i]->input();
+    }
 }
 void MainScene::update (float deltaTime) {
     // this->mesh->update(deltaTime);
@@ -55,7 +89,10 @@ void MainScene::draw () {
     // auto rect = (SDL_Rect){100, 5, 100, 100};
     // Scene::getTexture("mouse")->draw(rect);
     
-
+    for (int i = 0; i < StateButton::COUNT; ++i) {
+        if(m_stateButtons[i])
+            m_stateButtons[i]->draw();
+    }
 
     m_tileMap->draw();
 

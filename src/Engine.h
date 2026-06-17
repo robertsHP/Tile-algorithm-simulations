@@ -8,7 +8,6 @@
 
 #include "Debug.h"
 #include "Scene.h"
-#include "Input.h"
 
 class Engine : public Singleton<Engine> {
     private:
@@ -30,7 +29,6 @@ class Engine : public Singleton<Engine> {
             SDL_Renderer *rendPtr;
         } m_win;
 
-        Input m_input;
         Scene *m_currentScene;
 
     public:

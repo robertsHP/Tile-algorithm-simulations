@@ -4,22 +4,27 @@
 #include <vector>
 #include "SDL.h"
 
+// #include "Singleton.h"
+
 class Input {
-    public :
-        std::vector<SDL_Event> keyEvents;
-        std::vector<SDL_Event> mouseEvents;
-        uint8_t *keyBoardState;
-        uint32_t mouseState;
+    private:
+        static std::vector<SDL_Event> keyEvents;
+        static std::vector<SDL_Event> mouseEvents;
+        static uint8_t *keyBoardState;
+        static uint32_t mouseState;
     public:
-        void update ();
-        bool ifCondApplyToKeyEventCont (uint32_t inputType, uint8_t scanCode, uint8_t repeatAmount);
-        bool ifCondApplyToMouseEventCont (uint32_t inputType, uint8_t scanCode, uint8_t clickAmount);
-        bool keyPressed (uint8_t scanCode);
-        bool keyReleased (uint8_t scanCode);
-        bool keyHeldDown (uint8_t scanCode);
-        bool mousePressed (uint8_t scanCode);
-        bool mouseReleased (uint8_t scanCode);
-        bool mouseHeldDown (uint8_t mask);
+        Input() = delete;
+        ~Input () = delete;
+
+        static void update ();
+        static bool ifCondApplyToKeyEventCont (uint32_t inputType, uint8_t scanCode, uint8_t repeatAmount);
+        static bool ifCondApplyToMouseEventCont (uint32_t inputType, uint8_t scanCode, uint8_t clickAmount);
+        static bool keyPressed (uint8_t scanCode);
+        static bool keyReleased (uint8_t scanCode);
+        static bool keyHeldDown (uint8_t scanCode);
+        static bool mousePressed (uint8_t scanCode);
+        static bool mouseReleased (uint8_t scanCode);
+        static bool mouseHeldDown (uint8_t mask);
 };
 
 #endif // INPUT_H

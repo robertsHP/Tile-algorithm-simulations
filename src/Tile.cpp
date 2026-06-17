@@ -8,10 +8,10 @@ Tile::Tile (ID id, SDL_Point pos, Scene *scene) {
     m_txtr = m_associatedScene->getTexture("board");
 
     m_id = id;
-    m_rect = (SDL_Rect) {pos.x, pos.y, TXTR_WIDTH, TXTR_HEIGHT};
+    m_rect = (SDL_Rect) { pos.x, pos.y, TXTR_WIDTH * 2, TXTR_HEIGHT * 2 };
 }
 Tile::~Tile () {
-    Debug::log("INFO", "Destroying Tile.");
+    // Debug::log("INFO", "Destroying Tile.");
 }
 
 void Tile::input () {

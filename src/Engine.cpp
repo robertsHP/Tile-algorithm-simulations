@@ -1,5 +1,6 @@
 #include "Engine.h"
 
+#include "Input.h"
 #include "main.h"
 
 void Engine::init () {
@@ -105,7 +106,7 @@ void Engine::startLoop () {
 
             SDL_RenderClear(m_win.rendPtr);
 
-            m_input.update();
+            Input::update();
 
             m_currentScene->input();
             m_currentScene->update(deltaTime);

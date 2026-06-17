@@ -93,9 +93,9 @@ void CellularAutomata::updateTiles () {
 
                 if (cell(x, y) == 1)
                     // ncurses->drawChar(x, y, '1', NCurses::Colors::FG_WHITE_BG_BLACK);
-                    tile->setID(Tile::POS_MOV);
+                    tile->setID(Tile::GREEN);
                 else
-                    tile->setID(Tile::IMPOS_MOV);
+                    tile->setID(Tile::RED);
                     // ncurses->drawChar(x, y, '0', NCurses::Colors::FG_BLUE_BG_BLACK);
             }
         }
