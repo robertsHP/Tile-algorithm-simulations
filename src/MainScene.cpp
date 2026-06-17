@@ -1,7 +1,10 @@
 #include "MainScene.h"
 
-#include "BoardTile.h"
+#include <memory>
 #include "SDL_rect.h"
+
+// #include "Tile.h"
+#include "CellularAutomata.h"
 #include "Texture.h"
 
 #include "main.h"
@@ -12,18 +15,25 @@ MainScene::MainScene () {
     Texture *txtr = Scene::loadTexture("board", PROJECT_ROOT + "assets/board.png");
 
     if (txtr->loaded()) {
-        printf("LOADED\n");
-
         txtr->removeColor({ 255, 0, 255, 255 });
-        txtr->generateSheetTemplates({ 30, 16 });
+        txtr->generateSheetTemplates({ Tile::TXTR_WIDTH, Tile::TXTR_HEIGHT });
 
-        m_bTile = std::make_unique<BoardTile>(
-            BoardTile::ID::LIGHT, this
+        // m_tile = std::make_unique<Tile>(
+        //     Tile::ID::LIGHT, this
+        // );
+
+        m_tileMap = new TileMap (
+            (SDL_Point) { 600, 100 }, (SDL_Point) {10, 10}, this
         );
     }
+
+    m_celAutomata = new CellularAutomata(m_tileMap);
 }
 MainScene::~MainScene () {
-    
+    Debug::log("INFO", "Closing MainScene.");
+
+    if (m_tileMap) delete m_tileMap;
+    if (m_celAutomata) delete m_celAutomata;
 }
 
 void MainScene::input () {
@@ -33,7 +43,11 @@ void MainScene::update (float deltaTime) {
     // this->mesh->update(deltaTime);
 
 
-
+    if(m_tileMap) {
+        if (m_celAutomata) {
+            m_celAutomata->updateTiles();
+        }
+    }
 }
 void MainScene::draw () {
     // this->mesh->draw(this->plainShader, this->texture);
@@ -41,7 +55,12 @@ void MainScene::draw () {
     // auto rect = (SDL_Rect){100, 5, 100, 100};
     // Scene::getTexture("mouse")->draw(rect);
     
-    if(m_bTile)
-        m_bTile->draw();
+
+
+    m_tileMap->draw();
+
+
+    // if(m_tile)
+    //     m_tile->draw();
 }
 

@@ -15,11 +15,7 @@ void Input::update () {
     while(SDL_PollEvent(&event)) {
         switch(event.type){
             case SDL_QUIT :
-                printf("QUIT\n");
-
                 Engine::getInstance().stopLoop();
-//                  Engine::exitCond = 0;
-//                  Engine::loopOn = false;
                 return;
             case SDL_MOUSEBUTTONDOWN :
             case SDL_MOUSEBUTTONUP :

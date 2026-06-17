@@ -41,7 +41,7 @@
 
 
 
-class BoardTile {
+class Tile {
     public:
         enum ID : unsigned {
             LIGHT = 0,
@@ -51,7 +51,12 @@ class BoardTile {
             TEX_SEL
         };
 
+        static const int TXTR_WIDTH = 30;
+        static const int TXTR_HEIGHT = 16;
+
     private:
+        Scene *m_associatedScene;
+
         Texture *m_txtr;
         ID m_id;
     
@@ -62,6 +67,7 @@ class BoardTile {
         //     struct { Uint8 r, g, b, a; };
         //     SDL_Color color;
         // };
+        
         union {
             struct {
                 int m_x, m_y;
@@ -80,11 +86,12 @@ class BoardTile {
         //     SDL_Point posGM;
         // };
 
-        Scene *m_associatedScene;
+    public:
+        void setID (ID id) { m_id = id; }   
 
     public:
-        BoardTile (ID id, Scene *scene);
-        ~BoardTile ();
+        Tile (ID id, SDL_Point pos, Scene *scene);
+        ~Tile ();
 
         void input ();
         void update (float deltaTime);

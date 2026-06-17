@@ -1,5 +1,7 @@
 #include "Engine.h"
 
+#include "main.h"
+
 void Engine::init () {
     Debug::log("INFO", "Starting engine and loading window.");
 
@@ -7,9 +9,9 @@ void Engine::init () {
         return;
     }
 
-    m_win.title = "GFX Engine";
-    m_win.width = 1024;
-    m_win.height = 768;
+    m_win.title = WIN_TITLE;
+    m_win.width = WIN_WIDTH;
+    m_win.height = WIN_HEIGHT;
 
     if(!this->loadWindow()) {
         Debug::log("ERROR", "Failed to initialize window data.");

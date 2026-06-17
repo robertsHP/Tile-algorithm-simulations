@@ -27,6 +27,12 @@
 // #define MAIN_VANILLA_AUDIO_BITS		8
 // //!!!!!!!!!!!!!!!!
 
+
+
+#define WIN_TITLE "GFX Engine"
+#define WIN_WIDTH 1024
+#define WIN_HEIGHT 768
+
 #define DEBUG_ENABLED false
 
 #define PROJECT_ROOT std::string((DEBUG_ENABLED) ? "./" : "../")

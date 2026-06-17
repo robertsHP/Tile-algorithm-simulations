@@ -81,7 +81,7 @@ void Texture::generateSheetTemplates (SDL_Point templSize) {
         // else printf("TextureSheet : Failed to create from \"%s\"\n", fileLoc);
     }
 
-    printf("m_tmplts count = %d\n", (int) m_tmplts.size());
+    // printf("m_tmplts count = %d\n", (int) m_tmplts.size());
 }
 
 void Texture::removeColor (SDL_Color color) {

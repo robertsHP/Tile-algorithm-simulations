@@ -1,37 +1,34 @@
-#include "BoardTile.h"
+#include "Tile.h"
 
 #include "Engine.h"
 
-BoardTile::BoardTile (ID id, Scene *scene) {
+Tile::Tile (ID id, SDL_Point pos, Scene *scene) {
     m_associatedScene = scene;
 
     m_txtr = m_associatedScene->getTexture("board");
 
     m_id = id;
-    m_rect = (SDL_Rect) {0, 0, 30, 16};
+    m_rect = (SDL_Rect) {pos.x, pos.y, TXTR_WIDTH, TXTR_HEIGHT};
 }
-BoardTile::~BoardTile () {
-    Debug::log("INFO", "Destroying BoardTile.");
-}
-
-void BoardTile::input () {
-
+Tile::~Tile () {
+    Debug::log("INFO", "Destroying Tile.");
 }
 
-void BoardTile::update (float deltaTime) {
+void Tile::input () {
 
 }
 
-void BoardTile::draw () {
+void Tile::update (float deltaTime) {
+
+}
+
+void Tile::draw () {
 
     
     m_txtr->draw(m_id, &m_rect, 0, NULL, SDL_FLIP_NONE);
     
 
     // &obj->sheet->tmplts[obj->txtrIndex]
-
-
-
 
     // SDL_RenderCopyEx(
     //     g_win.rend,

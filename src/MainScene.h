@@ -2,6 +2,7 @@
 
 #include <memory>
 
+#include "CellularAutomata.h"
 #include "Debug.h"
 
 // #include "Engine.h"
@@ -14,18 +15,22 @@
 
 
 
-#include "BoardTile.h"
+// #include "Tile.h"
+#include "TileMap.h"
 
 class MainScene : public Scene {
     private :
         // std::shared_ptr<Engine::ShaderProgram> plainShader;
         // std::shared_ptr<Engine::Mesh> mesh;
 
-        std::unique_ptr<BoardTile> m_bTile;
+        // std::unique_ptr<Tile> m_tile;
+
+        TileMap *m_tileMap;
+        CellularAutomata *m_celAutomata;
 
     public:
         MainScene();
-        ~MainScene();
+        ~MainScene() override;
 
         void input () override;
         void update (float deltaTime) override;
