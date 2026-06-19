@@ -18,7 +18,7 @@ MainScene::MainScene () {
     // std::shared_ptr<Texture> txtr;
     Texture *txtr;
     
-    txtr = Scene::loadTexture("board", PROJECT_ROOT + "assets/board_iso.png");
+    txtr = Scene::loadTexture("board", PROJECT_ROOT + "assets/tiles.png");
 
     if (txtr->loaded()) {
         txtr->removeColor({ 255, 0, 255, 255 });
