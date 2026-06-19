@@ -36,26 +36,6 @@ void CellularAutomata::init () {
         }
     };
 
-    
-    // // R-Pentomino
-    // set(80, 50, L"  ## ");
-    // set(80, 51, L" ##  ");
-    // set(80, 52, L"  #  ");
-
-    // // Gosper Glider Gun
-    // set(60, 45, L"........................#............");
-    // set(60, 46, L"......................#.#............");
-    // set(60, 47, L"............##......##............##.");
-    // set(60, 48, L"...........#...#....##............##.");
-    // set(60, 49, L"##........#.....#...##...............");
-    // set(60, 50, L"##........#...#.##....#.#............");
-    // set(60, 51, L"..........#.....#.......#............");
-    // set(60, 52, L"...........#...#.....................");
-    // set(60, 53, L"............##.......................");
-
-    // // Infinite Growth
-    // set(20, 50, L"########.#####...###......#######.#####");
-
     m_timer.start();
 }
 
@@ -89,7 +69,6 @@ void CellularAutomata::updateTiles () {
     for (int x = 0; x < tileMapRect.w; x++) {
         for (int y = 0; y < tileMapRect.h; y++)
         {
-            // The secret of artificial life =================================================
             int nNeighbours =	cell(x - 1, y - 1) + cell(x - 0, y - 1) + cell(x + 1, y - 1) +
                                 cell(x - 1, y + 0) +          0         + cell(x + 1, y + 0) +
                                 cell(x - 1, y +	1) + cell(x + 0, y + 1) + cell(x + 1, y + 1);
@@ -98,7 +77,6 @@ void CellularAutomata::updateTiles () {
                 m_state[y * tileMapRect.w + x] = nNeighbours == 2 || nNeighbours == 3;
             else
                 m_state[y * tileMapRect.w + x] = nNeighbours == 3;
-            // ===============================================================================
 
             std::unique_ptr<Tile>& tile = m_tileMap->getTile({x, y});
 
