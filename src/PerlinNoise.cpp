@@ -45,12 +45,12 @@ void PerlinNoise::free () {
     // if (m_state) delete m_state;
 }
 
-void PerlinNoise::reset() {
-    Debug::log("INFO", "Reset CellularAutomata.");
+// void PerlinNoise::reset() {
+//     Debug::log("INFO", "Reset CellularAutomata.");
 
-    free ();
-    init ();
-}
+//     free ();
+//     init ();
+// }
 
 void PerlinNoise::updateTiles () {
     // if (!m_timer.ifTimePassed(80))

@@ -14,25 +14,31 @@
 #include "main.h"
 
 MainScene::MainScene () {
-    // std::shared_ptr<Texture> txtr;
     Texture *txtr;
     
-    txtr = Scene::loadTexture("board", PROJECT_ROOT + "assets/tiles.png");
+    txtr = Scene::loadTexture("tiles", PROJECT_ROOT + "assets/tiles.png");
+
+    if (txtr->loaded()) {
+        // txtr->removeColor({ 255, 0, 255, 255 });
+        txtr->generateSheetTemplates(
+            { Tile::TOP_TXTR_WIDTH, Tile::TOP_TXTR_HEIGHT }
+        );
+    }
+
+    txtr = Scene::loadTexture("tiles_iso", PROJECT_ROOT + "assets/tiles_iso.png");
 
     if (txtr->loaded()) {
         txtr->removeColor({ 255, 0, 255, 255 });
-        txtr->generateSheetTemplates({ Tile::TXTR_WIDTH, Tile::TXTR_HEIGHT });
-
-        // m_tile = std::make_unique<Tile>(
-        //     Tile::ID::LIGHT, this
-        // );
-
-        m_tileMap = new TileMap (
-            (SDL_Rect) { 482, 100, 17, 17}, 
-            TileType::TOP,
-            this
+        txtr->generateSheetTemplates(
+            { Tile::ISO_TXTR_WIDTH, Tile::ISO_TXTR_HEIGHT }
         );
     }
+
+    m_tileMap = new TileMap (
+        (SDL_Rect) { 482, 100, 17, 17}, 
+        TileType::TOP,
+        this
+    );
 
     txtr = Scene::loadTexture("state_btns", PROJECT_ROOT + "assets/state_btns.png");
     if (txtr->loaded()) {

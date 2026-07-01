@@ -16,8 +16,11 @@ class Tile : public Object {
             COUNT
         };
 
-        static const int TXTR_WIDTH = 30;
-        static const int TXTR_HEIGHT = 29;
+        static constexpr int ISO_TXTR_WIDTH = 30;
+        static constexpr int ISO_TXTR_HEIGHT = 29;
+
+        static constexpr int TOP_TXTR_WIDTH = 25;
+        static constexpr int TOP_TXTR_HEIGHT = 25;
 
     private:
         Texture *m_txtr;

@@ -17,8 +17,8 @@ void TileMap::generateIsometricTileMap () {
 
     offsetRow = offsetCol = 0;
     
-    int gapWidth = Tile::TXTR_WIDTH * 2;
-    int gapHeight = Tile::TXTR_HEIGHT;
+    int gapWidth = Tile::ISO_TXTR_WIDTH * 2;
+    int gapHeight = Tile::ISO_TXTR_HEIGHT;
 
     for(int row = 0; row < m_rect.h; ++row) {
         offsetRow = 0;
@@ -51,8 +51,8 @@ void TileMap::generateTopTileMap () {
 
     offsetRow = offsetCol = 0;
 
-    int gapWidth = Tile::TXTR_WIDTH;
-    int gapHeight = Tile::TXTR_HEIGHT;
+    int gapWidth = Tile::TOP_TXTR_WIDTH;
+    int gapHeight = Tile::TOP_TXTR_HEIGHT;
     
     for(int row = 0; row < m_rect.h; ++row) {
         offsetRow = 0;
@@ -61,7 +61,7 @@ void TileMap::generateTopTileMap () {
             int finalColVal = col * gapWidth;
             int finalRowVal = row * gapHeight;
 
-            finalColVal += m_rect.x;
+            finalColVal += m_rect.x - 200;
             finalRowVal += m_rect.y;
 
             m_topTiles.insert_or_assign(
@@ -69,7 +69,7 @@ void TileMap::generateTopTileMap () {
                 std::make_unique<Tile>(
                     Tile::ID::RED, 
                     (SDL_Point) {finalColVal, finalRowVal},
-                    TileType::ISOMETRIC,
+                    TileType::TOP,
                     m_associatedScene
                 )
             );

@@ -2,17 +2,27 @@
 
 #include "Engine.h"
 #include "Enums.h"
+#include <string>
 
-Tile::Tile (ID id, SDL_Point pos, TileType tileType, Scene *scene) 
+Tile::Tile (ID id, SDL_Point pos, TileType tileType, Scene *scene)
 : Object(
-    {pos.x, pos.y, TXTR_WIDTH * 2, TXTR_HEIGHT * 2}
+    {
+        pos.x, 
+        pos.y, 
+        ((tileType == TileType::ISOMETRIC) ? ISO_TXTR_WIDTH : TOP_TXTR_WIDTH) * 2, 
+        ((tileType == TileType::ISOMETRIC) ? ISO_TXTR_HEIGHT : TOP_TXTR_HEIGHT) * 2
+    }
     // {255, 255, 255, 255}
-)
-{
+) {
     m_tileType = tileType;
     m_associatedScene = scene;
 
-    m_txtr = m_associatedScene->getTexture("board");
+    m_txtr = m_associatedScene->getTexture(
+        (tileType == TileType::ISOMETRIC) ? 
+            "tiles_iso" 
+            : 
+            "tiles"
+    );
 
     m_id = id;
 }

@@ -23,14 +23,14 @@ class TileMap : public Object {
 
     public:
         TileMap (SDL_Rect rect, TileType viewType, Scene *scene);
-
-        void generateIsometricTileMap ();
-        void generateTopTileMap ();
-
         ~TileMap () override;
 
         void input () override;
         void update (float deltaTime) override;
         void draw () override;
+
+    private:
+        void generateIsometricTileMap ();
+        void generateTopTileMap ();
 };
 
